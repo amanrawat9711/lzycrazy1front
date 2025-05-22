@@ -22,12 +22,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   const isAuthenticated = !!localStorage.getItem('token');
-
-  // Redirect if already authenticated
+ 
   useEffect(() => {
-    if (isAuthenticated) {
-      // Redirect to home page (/)
-      navigate('/'); // <-- ensure this is the correct route
+    if (isAuthenticated) { 
+      navigate('/');  
     }
   }, [isAuthenticated, navigate]);
 
@@ -94,7 +92,7 @@ const Login = () => {
   }
 
   localStorage.setItem('loggedInUser', JSON.stringify(data.user));
-  localStorage.setItem('token', data.token); // Save token here
+  localStorage.setItem('token', data.token); 
   toast.success(`Welcome back, ${data.user.name}!`);
   setForm({ name: '', email: '', password: '', confirmPassword: '' });
   navigate('/');
@@ -108,14 +106,12 @@ const Login = () => {
     try {
       const result = await signInWithGoogle();
       const user = result.user;
-
-      // Save token and user info
+ 
       localStorage.setItem('token', 'some-auth-token');
       localStorage.setItem('loggedInUser', JSON.stringify({ name: user.displayName || user.email, email: user.email }));
 
       toast.success(`Logged in as ${user.displayName || user.email}`);
-
-      // Redirect to home page
+ 
       navigate('/');
     } catch (err) {
       toast.error('Google sign-in failed: ' + err.message);
@@ -131,8 +127,7 @@ const Login = () => {
       localStorage.setItem('loggedInUser', JSON.stringify({ name: user.displayName || user.email, email: user.email }));
 
       toast.success(`Logged in as ${user.displayName || user.email}`);
-
-      // Redirect to home page
+ 
       navigate('/');
     } catch (err) {
       toast.error('GitHub sign-in failed: ' + err.message);
@@ -142,17 +137,14 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-blue-100 to-white p-4">
       <Toaster position="top-center" />
-
-      {/* Left side: logo, search, categories */}
-      <div className="w-1/2 p-6 hidden md:block">
-        {/* Logo & Search */}
+ 
+      <div className="w-1/2 p-6 hidden md:block"> 
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-blue-600 p-3 rounded-full text-white">
             <FaSearch className='text-3xl' />
           </div>
           <img src={logo} alt="logo" className="h-24" />
-        </div>
-        {/* Search bar */}
+        </div> 
         <div className="relative mb-6">
           <input
             type="text"
@@ -160,8 +152,7 @@ const Login = () => {
             className="w-full bg-white p-4 rounded-full shadow-md focus:outline-none pl-10"
           />
           <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        </div>
-        {/* Categories */}
+        </div> 
         <div className="flex flex-wrap gap-3">
           {categories.map((item, idx) => (
             <button
@@ -176,10 +167,8 @@ const Login = () => {
           ))}
         </div>
       </div>
-
-      {/* Main form */}
-      <div className="w-full md:w-1/2 bg-white p-8 rounded-xl shadow-lg max-w-md">
-        {/* Toggle Buttons */}
+ 
+      <div className="w-full md:w-1/2 bg-white p-8 rounded-xl shadow-lg max-w-md"> 
         <div className="flex justify-between mb-6 bg-gray-100 rounded-full overflow-hidden">
           <button
             onClick={() => { setIsSignup(false); setForm({ name: '', email: '', password: '', confirmPassword: '' }); }}
@@ -262,7 +251,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-3 rounded bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold shadow"
+            className="cursor-pointer w-full py-3 rounded bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold shadow"
           >
             {isSignup ? 'Signup' : 'Login'}
           </button>
@@ -274,18 +263,17 @@ const Login = () => {
           <span className="text-gray-400 text-sm">Or continue with</span>
           <hr className="flex-grow border-gray-300" />
         </div>
-
-        {/* OAuth buttons */}
+ 
         <div className="flex gap-4">
           <button
             onClick={handleGoogleSignIn}
-            className="flex-1 flex items-center justify-center gap-2 p-3 border rounded"
+            className="cursor-pointer flex-1 flex items-center justify-center gap-2 p-3 border rounded"
           >
             <FcGoogle /> Google
           </button>
           <button
             onClick={handleGithubSignIn}
-            className="flex-1 flex items-center justify-center gap-2 p-3 border rounded text-gray-800"
+            className="cursor-pointer flex-1 flex items-center justify-center gap-2 p-3 border rounded text-gray-800"
           >
             <FaGithub /> GitHub
           </button>
